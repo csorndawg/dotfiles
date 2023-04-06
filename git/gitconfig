@@ -1,1 +1,27 @@
-/home/csorndog/.gitconfig
+[core]
+    pager = delta
+    editor = vim
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    light = false    # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+[user]
+        # PROFESSIONAL ACCNT.  (account I put on resume/use at work when needed)
+        # email = zcsorny@gmail.com     <---    
+        # name = zcsorny
+        
+        # PERSONAL/NON-WORK ACCNT.  (side projects/learning/etc.)
+	email = zaccsorny@yahoo.com
+	name = csorndawg
+
+[credential]
+	helper = cache
