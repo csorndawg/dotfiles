@@ -99,16 +99,9 @@ plugins=(
     history-substring-search
 )
 
-# websearch test
-# add later: common-aliases ; fd ; fzf ; ripgrep ; pass ; zsh-history-substring-search 
-
-
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
 # export MANPATH="/usr/local/man:$MANPATH"
-
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
@@ -155,26 +148,14 @@ prompt pure ## calling prompt with above customizations
 #fpath+=~/.zfuncfpath+=~/.zfuncfpath+=~/.zfunc
 #rustup completions zsh > ~/.zfunc/_rustup
 
-# alias for zshrc
-alias SOURCE_ZSHRC="omz reload"
-alias oz="vim ~/.zshrc"     # oz = open .zshrc
-
 # set VIM default editor all cases 
 export VISUAL=vim
 export EDITOR=vim
-#export VISUAL=nvim
-#export EDITOR=nvim
 
 ## git aliases
 alias gs="git status"
 alias gcm="git checkout master"
-alias gp="git pull"
-
-
-# ===========================================
-#   ZSH CUSTOM ALIASES 
-# ===========================================
-
+alias gpl="git pull"
 alias gs="git status"
 alias ga="git add"
 alias gb="git branch"
@@ -198,9 +179,6 @@ alias jc="jupyter console"
 #   ZSH CUSTOM ENV. 
 # ===========================================
 
-## 256 color reference
-## https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
-
 # ----------------------
 ## vi-mode Aliases
 # ----------------------
@@ -216,10 +194,6 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 #bindkey -v '^?' backward-delete-char
 export KEYTIMEOUT=1
 
-## color for each mode 
-#MODE_INDICATOR="%F{204}+%f"
-#INSERT_MODE_INDICATOR="%F{123}+%f"
-#VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 
 # copied from article -- need to test
 # indicators 
@@ -260,10 +234,6 @@ export KEYTIMEOUT=1
 #  return $(( 128 + $1 ))
 #}
 #
-#PROMPT='$THEME_PROMPT_PREFIX%f%B%F{240}%1~%f%b %(?.%F{green}$THEME_VI_MODE_SYMBOL.%F{red}$THEME_VI_MODE_SYMBOL) '
-
-## needed for ripgrep custom configurations
-RIPGREP_CONFIG_PATH="$(ls $HOME/.ripgreprc)"
 
 
 # ===========================================
@@ -273,76 +243,12 @@ RIPGREP_CONFIG_PATH="$(ls $HOME/.ripgreprc)"
 ## needed for ripgrep custom configurations
 RIPGREP_CONFIG_PATH="$(ls $HOME/.ripgreprc)"
 
-### FZF KEY BINDINGS REMAPS
-##[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-#[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-#export FZF_DEFAULT_COMMAND='fd --type f'
-#export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-#export FZF_CTRL_T_COMMAND='fd . $HOME --type d'     ## CTRL_T searches with PREVIEW window
-#export FZF_CTRL_T_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
-##export FZF_CTRL_T_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
-#export FZF_ALT_C_COMMAND='fd . --type d $HOME'
-#
-#
-### FZF SCRIPTS
-#fe() {
-#    IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
-#    [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
-#  }
-#
-
-# ===========================================
-#   INACTIVE (e.g. function still being tested, testing 
-#             workflow before removing something, want to 
-#             trry-out in the future)
-#
-# ===========================================
-#
-
-
-# frequently used txt file 
-#alias command_logger="vim ongoing/running_lists/unix_commands.running_list.md"
-
-
-
 ## ==========================================
 #       FZF: Bindings, Scripts, etc.
 ## ==========================================
 
-######	MAIN PAGE/ STD. CONFIG	######
-# Use fd instead of default find command for listing path candidates
-# - First argument to function ($1) is the base path to start traversal
-#
-### FZF KEY BINDINGS REMAPS
-##[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-#[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-#export FZF_DEFAULT_COMMAND='fd --type f'
-#export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-#export FZF_CTRL_T_COMMAND='fd . $HOME --type d'     ## CTRL_T searches with PREVIEW window
-#export FZF_CTRL_T_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
-##export FZF_CTRL_T_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
-#export FZF_ALT_C_COMMAND='fd . --type d $HOME'
-#
-#
-### FZF SCRIPTS
-#fe() {
-#    IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
-#    [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
-#  }
-#
-## populates default/vanilla `fzf` call
-#_fzf_compgen_path() {
-#  fd --hidden --follow --exclude ".git" . "$1"
-#}
-#
-## Use fd to generate list for directory completion
-#_fzf_compgen_dir() {
-#  fd --type d --hidden --follow --exclude ".git" . "$1"
-#}
 
 alias r=R
-#alias venvON="source /home/csorndog/utils/codeEnvs/python/venv/bin/activate"
-
 
 ## ====================================================================================
 #       Workflow/Productivity/Etc.
@@ -361,9 +267,6 @@ alias gcmtv="git commit -m"         ## verbose commit
 alias grb="git rebase"
 alias grbi="git rebase -i"
 alias gplfrc="git pull --force"     ## USE AFTER REBASE COMPLETED
-#TODO: TEST BELOW TO SEE WHICH RIGHT
-alias gpshprod="git push -u origin $1 "     ## unsure if works but if yes better than below
-alias gpshprod2="git push -u origin "     ## follow w. repo branch before entering 
 
 ## suffix aliases 
 alias -s md=vim     ## opens markdown (.md) in vim if entered by itself on CLI
@@ -413,11 +316,10 @@ alias zc_go="cd /home/csorndog/quick/quicknotes/personal_nonTech"
 #===============================================================================
 
 #alias vim="vim -S /home/csorndog/.vimrc"
-alias vim="vim -c 'set buftype='"       ## @TESTING
+#alias vim="vim -c 'set buftype='"       ## @TESTING
 
 #===============================================================================
 alias jn='jupyter notebook --no-browser | tee -a /home/csorndog/data/logs/jupyter/jupyter_nb_remote_server.log'
-
 
 #===============================================================================
 #   TESTING/UNSTABLE
@@ -426,23 +328,20 @@ alias jn='jupyter notebook --no-browser | tee -a /home/csorndog/data/logs/jupyte
 
 ## MARCH ADDITIONS
 alias cookiecutter-datascience="cookiecutter https://github.com/drivendata/cookiecutter-data-science"
-alias quote_yeezy="curl -s https://api.kanye.rest/ | jq"
 
 #### TERM. ENV INIT LOADS
 # automatically load default VENV 
 #source /home/csorndog/utils/codeEnvs/python/venv/bin/activate
 source /home/csorndog/.local/etc/venvs/venv/bin/activate 
+alias cb="cd /dat/cookbooks"
+alias ssh_github_csorndawg_pp="cat ~/.vault/logins/csorndog_github_ssh_logins.txt"
 
 # TODO: move below to bash script. After update code to simply call/execute
 #       bash script instead of using aliases (aliases not optimal soln. for this case)
 # auto request/fetch Kanye quote after terminal loads. Add quote to running list file after displaying
 echo ""
-echo ""
-curl -s  https://api.kanye.rest/ | jq | tee -a  /home/csorndog/quick/daily/quotes/refs/kanye_quotes.running_list.md
-
-## stoic quotes
-alias quote_stoic="curl -s  https://stoic-quotes.com/api/quote | jq | \
-    tee -a /home/csorndog/quick/daily/quotes/stoic/stoic_quotes.running_list.md "
+#curl -s  https://api.kanye.rest/ | jq | tee -a  /home/csorndog/quick/daily/quotes/refs/kanye_quotes.running_list.md
+curl -s  https://api.kanye.rest/ 
 
 ################################################################################
 #   FZF/ZVIM KEYBINDS, SOURCING, IDEAS, ETC.
@@ -451,68 +350,12 @@ alias quote_stoic="curl -s  https://stoic-quotes.com/api/quote | jq | \
 #####   NOTE: ZVM docs state to move/resource FZF keybinds to below loc in .zshrc
 #  FROM ZVM DOC: SOURCE  FZF.ZSH which sources completion 
 #  keybind script in ~/.fzf/shell/completion.zsh
-zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')  ##[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ##  -----------------------------------
 ##  FZF KEY BINDINGS REMAPS
 ##  -----------------------------------
 
-##       FZF_DEFAULT: what runs when `fzf` executes
-export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_OPTS='--height 70% --layout=reverse --border'
-#export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
-##      CTRL_T DEFAULT: fzf w/ bat preview window ; CTRL_T_OPS ripped from junegunn
-export FZF_CTRL_T_COMMAND='fd . $HOME --type f'     ## CTRL_T searches with PREVIEW window
-export FZF_CTRL_T_OPTS="
-  --preview 'bat -n --color=always {}'
-  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
-#export FZF_CTRL_T_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
-
-##	ALT_C: fzf-cd-widget
-# NOTE: **FUTURE ENCHANEMENT: change `tree` to `exa` for more powerful/experience
-export FZF_ALT_C_COMMAND='fd . --type d $HOME'       ## only fuzzy search dirs  for ALT_C
-export FZF_ALT_C_OPTS='--preview "tree -C -L 3 {} | head -n 250"'	## show total 125 lines from tree w/ no more than 3 subtree levels
-#export FZF_ALT_C_OPTS='--preview "tree -Cd -L 3 {} | head -n 250"'	## show only dirs w/ no more than 3 subtree levels from current lvl
-
-
-## NOTE: still testing "FZF_CTRL_R/S_COMMAND" for FZF_HISTORY_WIDGET
-##	CTRL_S/R:  fzf-history-widget 
-##	CTRL-/ to toggle small preview window to see the full command
-## 	CTRL-Y to copy the command into clipboard using pbcopy
-#export FZF_CTRL_R_OPTS="
-export FZF_CTRL_S_OPTS="
-  --preview 'echo {}' --preview-window up:3:hidden:wrap
-  --bind 'ctrl-/:toggle-preview'
-  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
-  --color header:italic
-  --header 'Press CTRL-Y to copy command into clipboard'"
-
-##  TODO:  finsh direct hist-widget keybind execution
-##  NOTE: direct execute from widget still in test
-##  CTRL-X CTRL-S:  directly execute hist cmnd 
-
-## NOTE: TESTING BELOW as of 3/25; Remove if unknown issues arise
-fzf-history-widget-accept() {
-  fzf-history-widget
-  zle accept-line
-}
-zle     -N     fzf-history-widget-accept
-bindkey '^X^R' fzf-history-widget-accept
-
-## FZF SCRIPTS
-fe() {
-    IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
-    [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
-  }
-
-# populates default/vanilla `fzf` call
-_fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
-}
-
-# Use fd to generate list for directory completion
-_fzfh_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
-}
-
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## MAY  ADDITIONS
+alias weatherr="curl wttr.in/New+York"

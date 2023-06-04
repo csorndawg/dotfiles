@@ -12,7 +12,7 @@ nmap , <space>
 set  nocompatible
 filetype indent on                  " load filetype-specific indent files
 syntax enable                       " enable syntax highlighting
-" set wildmenu                        " visual autocomplete for command menu
+set wildmenu                        " visual autocomplete for command menu
 set showmatch                       " highlight matching !!important!!
 " set showcmd                         " show command in bottom bar
 "syntax on
@@ -58,7 +58,6 @@ function! s:MaySet(option) abort
   return out !~# " \\(\\~[\\/][^\n]*\\|Lua\\)$"
 endfunction
 
-????
 if s:MaySet('backspace')
   set backspace=indent,eol,start
 endif
@@ -309,3 +308,11 @@ let g:ale_sign_warning = '.'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+" ---------------------------------------------------------------
+"       IDEA.VIMRC
+" ---------------------------------------------------------------
+
+" ; changes mode from Normal/Visual to Command mode
+nnoremap ; : 
+vnoremap ; :
