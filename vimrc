@@ -51,7 +51,7 @@ set laststatus=2
 set ruler
 set wildmenu
 set wildignore+=*/tmp/*,*.so,*.zcignore,*.zip  " ignore specific files and directories
-set nowrap
+set wrap
 set scrolloff=1
 set sidescroll=1
 set sidescrolloff=2
@@ -62,6 +62,10 @@ set history=1500
 set tabpagemax=50
 set viminfo^=!
 setglobal tags-=./tags tags-=./tags; tags^=./tags;
+
+" F3 toggles paste on/off 
+inoremap <F3> <esc>:set paste!<cr>
+nnoremap <F3> :set paste!<cr>
 
 " stop saving session option/view files 
 set sessionoptions-=options
@@ -101,7 +105,13 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k      
 nnoremap <C-l> <C-w>l      
 
+"   Modal Remaps 
+
 " ; changes mode from Normal/Visual to Command mode
+nnoremap ; : 
+vnoremap ; :
+
+" remapping default `;` fF tT cycling to <LEADER>;
 nnoremap ; : 
 vnoremap ; :
 
@@ -132,6 +142,7 @@ Plug 'cocopon/iceberg.vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'mhartington/oceanic-next'
+Plug 'vim-airline/vim-airline'
 
 " may trial plugins 
 "Plug 'preservim/vimux'
@@ -145,12 +156,14 @@ call plug#end()
 " ========================================================
 
 " 	colorscheme
+" 	" seoul256 (dark):
+" 	"   "Range:   233 (darkest) ~ 239 (lightest)
+" 	"   "Default: 237
+" 	let g:seoul256_background = 236
 set background=dark
-syntax on
-let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
-colorscheme OceanicNext
-let g:airline_theme='oceanicnext'
+"syntax on
+colorscheme seoul256
+"let g:airline_theme='oceanicnext'
 " backup colorscheme (auto configures airline) if above has issues
 " colorscheme nord (backup)
 
@@ -176,6 +189,12 @@ nmap <leader>b :TagbarToggle<CR>
 " lint on save only 
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
+
+" disable fixer
+let g:ale_fix_on_save = 0
+" toggle fixing command  - need to remove `\` before `"let` ; only included to
+" comment out line
+"  command! ALEToggleFixer execute \"let g:ale_fix_on_save = get(g:," 'ale_fix_on_save', 0) ? 0 : 1"
 
 " error symbols
 let g:ale_sign_error = '●'
