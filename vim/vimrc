@@ -1,0 +1,231 @@
+" ========================================================
+" Essential Configurations
+" ========================================================
+" below might be fix for buftype issue I've been experiencing 
+" set shell=bash, always
+
+" remap leader to space ; alias "\" and "," to leader
+let mapleader= " "
+nmap <bslash> <space>
+nmap , <space>
+
+
+
+" vimwiki requirement 
+set  nocompatible
+filetype plugin on
+filetype indent on                  " load filetype-specific indent files
+syntax on 
+
+"   SENSIBLE VIM++
+let g:is_posix = 1  " correctly highlight $() if filetype=sh
+set wildmenu                        " visual autocomplete for command menu
+set showmatch                       " highlight matching !!important!!
+set showcmd                         " show command in bottom bar
+syntax on
+set noerrorbells
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set expandtab
+set smartindent
+" set complete-=i
+set rnu
+set smartcase
+set colorcolumn=80
+set noswapfile
+set nobackup
+set undodir=~/.vim/undodir
+set undofile
+set incsearch   " highlight matches from ? and /
+set wrapscan    " wrap search results
+set splitbelow
+set splitright
+set encoding=utf-8
+set clipboard=unnamed
+set backspace=indent,eol,start
+set nrformats-=octal
+set ttimeout
+set ttimeoutlen=100
+set incsearch
+set laststatus=2
+set ruler
+set wildmenu
+set wildignore+=*/tmp/*,*.so,*.zcignore,*.zip  " ignore specific files and directories
+set wrap
+set scrolloff=1
+set sidescroll=1
+set sidescrolloff=2
+set display+=lastline
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+set autoread
+set history=1500
+set tabpagemax=50
+set viminfo^=!
+setglobal tags-=./tags tags-=./tags; tags^=./tags;
+
+" F3 toggles paste on/off 
+inoremap <F3> <esc>:set paste!<cr>
+nnoremap <F3> :set paste!<cr>
+
+" stop saving session option/view files 
+set sessionoptions-=options
+set viewoptions-=options
+
+" enable Vim's  :Man command 
+runtime ftplugin/man.vim    
+
+" Allow color schemes to do bright colors without forcing bold.
+if &t_Co == 8 && $TERM !~# '^Eterm'
+  set t_Co=16
+endif
+
+" from `:help :DiffOrig`.
+command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_  
+            \ | diffthis | wincmd p | diffthis
+
+" load matchit.vim, but only if the user hasn't installed newer version
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+    runtime! macros/matchit.vim
+endif
+
+" remap CTRL-L to clear highlighting from 'hlsearch' AND call :diffupdate
+nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+
+" recover accidentally deleted text with undo (`u` in normal mode)
+inoremap <C-U> <C-G>u<C-U>
+inoremap <C-W> <C-G>u<C-W>
+
+" ========================================================
+"       TEST/IDEA REMAPS
+" ========================================================
+
+" 	window navigation remaps. (change to mirror tmux)
+nnoremap <C-h> <C-w>h      
+nnoremap <C-j> <C-w>j      
+nnoremap <C-k> <C-w>k      
+nnoremap <C-l> <C-w>l      
+
+"   Modal Remaps 
+
+" ; changes mode from Normal/Visual to Command mode
+nnoremap ; : 
+vnoremap ; :
+
+" remapping default `;` fF tT cycling to <LEADER>;
+nnoremap ; : 
+vnoremap ; :
+
+" ========================================================
+"   plugins
+" ========================================================
+call plug#begin('~/.vim/plugged')
+
+Plug 'jremmen/vim-ripgrep'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'mbbill/undotree'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'vim-utils/vim-man'
+Plug 'preservim/tagbar'
+
+""  code completition 
+Plug 'davidhalter/jedi-vim'   " python only
+Plug 'dense-analysis/ale'
+"Plug 'ycm-core/YouCompleteMe'
+"Plug 'jpalardy/vim-slime'
+"Plug 'SirVer/ultisnips'
+"Plug 'honza/vim-snippets'
+
+" new colorschemes
+Plug 'cocopon/iceberg.vim'
+Plug 'junegunn/seoul256.vim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'mhartington/oceanic-next'
+Plug 'vim-airline/vim-airline'
+
+" may trial plugins 
+"Plug 'preservim/vimux'
+Plug 'chrisbra/matchit'
+Plug 'vimwiki/vimwiki'
+
+call plug#end()
+
+" ========================================================
+"   CONFIRMED/REQUIRED: Plugin Configs. 
+" ========================================================
+
+" 	colorscheme
+" 	" seoul256 (dark):
+" 	"   "Range:   233 (darkest) ~ 239 (lightest)
+" 	"   "Default: 237
+" 	let g:seoul256_background = 236
+set background=dark
+"syntax on
+colorscheme seoul256
+"let g:airline_theme='oceanicnext'
+" backup colorscheme (auto configures airline) if above has issues
+" colorscheme nord (backup)
+
+" 	primagen 
+nnoremap <leader>u :UndotreeShow<CR>
+nnoremap <silent> <leader>gd :YouCompleter GoTo<CR>
+nnoremap <silent> <leader>gf :YouCompleter FixIt<CR>
+
+" 	fugative remaps
+nmap <leader>gs :G<CR>
+nmap <leader>gh :diffget //3<CR>
+nmap <leader>gf :diffget //2<CR>
+
+"   tagbar
+nmap <leader>b :TagbarToggle<CR>
+
+" ========================================================
+"   IDEA/TEST: PLUGIN REMAPS 
+" ========================================================
+"
+""   ALE (VIA WEBDEV)
+
+" lint on save only 
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+
+" disable fixer
+let g:ale_fix_on_save = 0
+" toggle fixing command  - need to remove `\` before `"let` ; only included to
+" comment out line
+"  command! ALEToggleFixer execute \"let g:ale_fix_on_save = get(g:," 'ale_fix_on_save', 0) ? 0 : 1"
+
+" error symbols
+let g:ale_sign_error = '●'
+let g:ale_sign_warning = '.'
+
+" error strings format 
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+" easier error cycling w/ `CTRL-e` 
+nmap <silent> <C-e> <Plug>(ale_next_wrap)
+
+" display number of errors/warnings in status line
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? 'OK' : printf(
+        \   '%d. %d● ',
+        \   all_non_errors,
+        \   all_errors
+        \)
+endfunction
+set statusline+=%=
+set statusline+=\ %{LinterStatus()}
+
+
+
+" ---------------------------------------------------------------
+"       IDEA.VIMRC
+" ---------------------------------------------------------------
+
+
