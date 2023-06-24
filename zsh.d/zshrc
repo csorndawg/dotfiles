@@ -361,3 +361,6 @@ curl -s  https://api.kanye.rest/
 alias weatherr="curl wttr.in/New+York"
 alias mw="cd /home/csorndog/git-csorndog/private/myWiki"
 alias zw="z myWiki"
+
+# pipenv default
+path+=('/home/csorndog/.local/share/virtualenvs/')
