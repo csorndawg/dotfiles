@@ -63,14 +63,19 @@ set tabpagemax=50
 set viminfo^=!
 setglobal tags-=./tags tags-=./tags; tags^=./tags;
 
-" F3 toggles paste on/off 
+" F3 toggles paste on 
 inoremap <F3> <esc>:set paste!<cr>
 nnoremap <F3> :set paste!<cr>
+" F4 toggles paste off 
+nnoremap <F4> :set nopaste!<cr>
+inoremap <F4> <esc>:set nopaste!<cr>
 
 " stop saving session option/view files 
 set sessionoptions-=options
 set viewoptions-=options
 
+
+""		VIM SENSIBLE CHERRYPICKS
 " enable Vim's  :Man command 
 runtime ftplugin/man.vim    
 
@@ -95,11 +100,17 @@ nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
 
+
+
 " ========================================================
 "       TEST/IDEA REMAPS
 " ========================================================
 
-" 	window navigation remaps. (change to mirror tmux)
+
+""		CONVENIENCE REMAPS 
+""		------------------
+
+" 	convenient window navigation remaps (change to mirror tmux)
 nnoremap <C-h> <C-w>h      
 nnoremap <C-j> <C-w>j      
 nnoremap <C-k> <C-w>k      
@@ -107,13 +118,14 @@ nnoremap <C-l> <C-w>l
 
 "   Modal Remaps 
 
-" ; changes mode from Normal/Visual to Command mode
-nnoremap ; : 
-vnoremap ; :
+" change mode from Normal/Visual to Command mode `;` 	# TODO: Find better remap, currently breaks fFtT cycling
+"nnoremap ; : 
+"vnoremap ; :
 
+" TODO: tst if below solution works   ## DOES NOT WORK 
 " remapping default `;` fF tT cycling to <LEADER>;
-nnoremap ; : 
-vnoremap ; :
+"nnoremap ; : 
+"vnoremap ; :
 
 " ========================================================
 "   plugins
@@ -134,8 +146,8 @@ Plug 'davidhalter/jedi-vim'   " python only
 Plug 'dense-analysis/ale'
 "Plug 'ycm-core/YouCompleteMe'
 "Plug 'jpalardy/vim-slime'
-"Plug 'SirVer/ultisnips'
-"Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " new colorschemes
 Plug 'cocopon/iceberg.vim'
@@ -143,11 +155,12 @@ Plug 'junegunn/seoul256.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'mhartington/oceanic-next'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " may trial plugins 
 "Plug 'preservim/vimux'
 Plug 'chrisbra/matchit'
-Plug 'vimwiki/vimwiki'
+"Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
@@ -163,6 +176,10 @@ call plug#end()
 set background=dark
 "syntax on
 colorscheme seoul256
+let g:airline_theme='seoul256'
+let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
+
+"let g:airline_theme='seoul256'
 "let g:airline_theme='oceanicnext'
 " backup colorscheme (auto configures airline) if above has issues
 " colorscheme nord (backup)
@@ -180,11 +197,11 @@ nmap <leader>gf :diffget //2<CR>
 "   tagbar
 nmap <leader>b :TagbarToggle<CR>
 
-" ========================================================
-"   IDEA/TEST: PLUGIN REMAPS 
-" ========================================================
-"
-""   ALE (VIA WEBDEV)
+
+
+""	----------------
+""  ALE (VIA WEBDEV)
+""	----------------
 
 " lint on save only 
 let g:ale_lint_on_enter = 0
@@ -225,7 +242,39 @@ set statusline+=\ %{LinterStatus()}
 
 
 " ---------------------------------------------------------------
-"       IDEA.VIMRC
+"       IDEA.VIMRC 2		(RIPPED REMAPS/CONFIGS)
 " ---------------------------------------------------------------
+
+"" DetectIndent: Enable and configure.
+"augroup detectindent
+"  autocmd!
+"  autocmd BufReadPost * :DetectIndent
+"augroup END
+"let g:detectindent_preferred_expandtab = 1
+"let g:detectindent_preferred_indent = 3
+
+
+"		****** ULTISNIPS x YOUCOMPLETEME x SUPERTAB CONFIGURATION *******
+" 	@@TODO: ADD/TEST/CONFIGURE YOUCOMPLETEME FOR MY PYTHON/BASH/GO/RUST/SQL DEVELOPMENT
+"	@@REMINDER: ENSURE THERE ARE NO ISSUES WITH **SUPERTAB x ULTISNIPS x YOUCOMPLETEME** KEYBINDINGS
+""	HAVING MY CAKE AND EATING IT TOO
+
+" UltiSnips: Compatibility with YouCompleteMe via SuperTab.
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"			" default: <c-b>
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"		" NOTE: <s-tab> == SHIFT TAB  ; default: <c-z>
+let g:UltiSnipsEditSplit="vertical"		" default is horizontal
+
+
+"	TODO: COMMENTING OUT FOR NOW ; STILL NEED TO REVIEW VIMWIKI BEFORE TESTING/EXPLORING
+"" \\\	VimWiki: default locations config
+"let g:vimwiki_list = [{
+"  \ 'path': '$HOME/Dropbox/wiki',
+"  \ 'template_path': '$HOME/Dropbox/wiki/templates',
+"  \ 'template_default': 'default',
+"  \ 'template_ext': '.html'}]
 
 
