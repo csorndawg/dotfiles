@@ -364,3 +364,6 @@ alias zw="z myWiki"
 
 # pipenv default
 path+=('/home/csorndog/.local/share/virtualenvs/')
+
+# go env. 
+PATH="$PATH:/home/csorndog/.local/go/bin"

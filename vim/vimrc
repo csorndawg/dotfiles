@@ -1,3 +1,15 @@
+" ================================================================================================================
+"	SOURCED/MODULARIZED VIMRC 		(STILL IN-PROGRESS SO COMMENTING OUT FOR NOW)
+" ================================================================================================================
+" $HOME/.vimrc
+
+"source $HOME/.vim/init/plug.vimrc      " plugin loader
+"source $HOME/.vim/init/general.vimrc   " general settings
+"source $HOME/.vim/init/leader.vimrc    " leader key settings
+"source $HOME/.vim/init/functions.vimrc " custom functions
+"source $HOME/.vim/init/plugins.vimrc   " plugin specific settings
+
+
 " ========================================================
 " Essential Configurations
 " ========================================================
@@ -63,13 +75,6 @@ set tabpagemax=50
 set viminfo^=!
 setglobal tags-=./tags tags-=./tags; tags^=./tags;
 
-" F3 toggles paste on 
-inoremap <F3> <esc>:set paste!<cr>
-nnoremap <F3> :set paste!<cr>
-" F4 toggles paste off 
-nnoremap <F4> :set nopaste!<cr>
-inoremap <F4> <esc>:set nopaste!<cr>
-
 " stop saving session option/view files 
 set sessionoptions-=options
 set viewoptions-=options
@@ -127,6 +132,8 @@ nnoremap <C-l> <C-w>l
 "nnoremap ; : 
 "vnoremap ; :
 
+filetype plugin indent on
+
 " ========================================================
 "   plugins
 " ========================================================
@@ -144,10 +151,11 @@ Plug 'preservim/tagbar'
 ""  code completition 
 Plug 'davidhalter/jedi-vim'   " python only
 Plug 'dense-analysis/ale'
-"Plug 'ycm-core/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe'
 "Plug 'jpalardy/vim-slime'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'ervandew/supertab'
 
 " new colorschemes
 Plug 'cocopon/iceberg.vim'
@@ -175,8 +183,10 @@ call plug#end()
 " 	let g:seoul256_background = 236
 set background=dark
 "syntax on
-colorscheme seoul256
+"colorscheme seoul256
+colorscheme nord
 let g:airline_theme='seoul256'
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
 
 "let g:airline_theme='seoul256'
@@ -186,8 +196,25 @@ let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
 
 " 	primagen 
 nnoremap <leader>u :UndotreeShow<CR>
-nnoremap <silent> <leader>gd :YouCompleter GoTo<CR>
-nnoremap <silent> <leader>gf :YouCompleter FixIt<CR>
+
+
+"" jedi: `""=default`
+"let g:jedi#goto_command = #"<leader>d"
+"let g:jedi#goto_assignments_command = #"<leader>g"
+"let g:jedi#goto_stubs_command = #"<leader>s"
+"let g:jedi#goto_definitions_command = #""
+"let g:jedi#documentation_command = #"K"
+"let g:jedi#usages_command = #"<leader>n"
+"let g:jedi#completions_command = #"<leader>c"
+"let g:jedi#rename_command = #"<leader>r"
+"let g:jedi#rename_command_keep_name = #"<leader>R"
+
+" YCM KEYBINDINGS
+nnoremap <silent> <leader>G :YouCompleter GoTo<CR>
+nnoremap <silent> <leader>F :YouCompleter FixIt<CR>
+nnoremap <leader>rs :YcmRestartServer<cr>
+nnoremap <leader>k :YouCompleter GetDoc<cr>
+
 
 " 	fugative remaps
 nmap <leader>gs :G<CR>
@@ -253,20 +280,28 @@ set statusline+=\ %{LinterStatus()}
 "let g:detectindent_preferred_expandtab = 1
 "let g:detectindent_preferred_indent = 3
 
+" ------- YOUCOMPLETEME CONFIGURATION ---------
+let g:ycm_python_interpreter_path = '/home/csorndog/.local/etc/venvs/venv/bin/python3'
+let g:ycm_python_sys_path = []
+let g:ycm_extra_conf_vim_data = [
+  \  'g:ycm_python_interpreter_path',
+  \  'g:ycm_python_sys_path'
+  \]
+let g:ycm_global_ycm_extra_conf = '~/dotfiles/envs/python/global_extra_conf.py'
+
+
 
 "		****** ULTISNIPS x YOUCOMPLETEME x SUPERTAB CONFIGURATION *******
 " 	@@TODO: ADD/TEST/CONFIGURE YOUCOMPLETEME FOR MY PYTHON/BASH/GO/RUST/SQL DEVELOPMENT
 "	@@REMINDER: ENSURE THERE ARE NO ISSUES WITH **SUPERTAB x ULTISNIPS x YOUCOMPLETEME** KEYBINDINGS
 ""	HAVING MY CAKE AND EATING IT TOO
 
-" UltiSnips: Compatibility with YouCompleteMe via SuperTab.
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"			" default: <c-b>
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"		" NOTE: <s-tab> == SHIFT TAB  ; default: <c-z>
+"let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:UltiSnipsExpandTrigger = "<c-s>"
+let g:UltiSnipsJumpForwardTrigger = "<c-b>"			" default: <c-b>
+let g:UltiSnipsJumpBackwardTrigger = "<c-z>"		" NOTE: <s-tab> == SHIFT TAB  ; default: <c-z>
 let g:UltiSnipsEditSplit="vertical"		" default is horizontal
+let g:UltiSnipsSnippetDirectories = ['UltiSnips']
 
 
 "	TODO: COMMENTING OUT FOR NOW ; STILL NEED TO REVIEW VIMWIKI BEFORE TESTING/EXPLORING
@@ -277,4 +312,49 @@ let g:UltiSnipsEditSplit="vertical"		" default is horizontal
 "  \ 'template_default': 'default',
 "  \ 'template_ext': '.html'}]
 
+" make YCM compatible with UltiSnips (using supertab)
+"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+"let g:SuperTabDefaultCompletionType = '<C-n>'
+"
+"" better key bindings for UltiSnipsExpandTrigger
+"let g:UltiSnipsExpandTrigger = "<tab>"
+"let g:UltiSnipsJumpForwardTrigger = "<tab>"
+"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
+
+function! g:UltiSnips_Complete()
+  call UltiSnips#ExpandSnippet()
+  if g:ulti_expand_res == 0
+    if pumvisible()
+      return "\<C-n>"
+    else
+      call UltiSnips#JumpForwards()
+      if g:ulti_jump_forwards_res == 0
+        return "\<TAB>"
+      endif
+    endif
+  endif
+  return ""
+endfunction
+
+function! g:UltiSnips_Reverse()
+  call UltiSnips#JumpBackwards()
+  if g:ulti_jump_backwards_res == 0
+    return "\<C-P>"
+  endif
+
+  return ""
+endfunction
+
+
+if !exists("g:UltiSnipsJumpForwardTrigger")
+  let g:UltiSnipsJumpForwardTrigger = "<tab>"
+endif
+
+if !exists("g:UltiSnipsJumpBackwardTrigger")
+  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+endif
+
+au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
+au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
