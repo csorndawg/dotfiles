@@ -155,6 +155,7 @@ export EDITOR=vim
 ## git aliases
 alias gs="git status"
 alias gcm="git checkout master"
+alias gcm="git checkout main"
 alias gpl="git pull"
 alias gs="git status"
 alias ga="git add"
@@ -367,3 +368,12 @@ path+=('/home/csorndog/.local/share/virtualenvs/')
 
 # go env. 
 PATH="$PATH:/home/csorndog/.local/go/bin"
+
+
+# tmux convenience
+alias tmd="tmux detach"             # TMux Detach (current session)
+alias tmds="tmux detach -t $1"      # TMux Detach target Session
+alias tma="tmux attach"             # TMux attach (most recent session)
+alias tmas="tmux attach -t $1"      # TMux Attach Session X
+alias tmks="tmux kill-session -t $1"        # TMux Kill Session 
+alias tmkas="tmux kill-session -a -t $1"    # TMux Kill All Sessions Except 
