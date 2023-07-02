@@ -377,3 +377,4 @@ alias tma="tmux attach"             # TMux attach (most recent session)
 alias tmas="tmux attach -t $1"      # TMux Attach Session X
 alias tmks="tmux kill-session -t $1"        # TMux Kill Session 
 alias tmkas="tmux kill-session -a -t $1"    # TMux Kill All Sessions Except 
+alias tmns="tmux new-session -t $1"         # TMux New Session
