@@ -29,13 +29,14 @@ filetype plugin on
 filetype indent on                  " load filetype-specific indent files
 syntax on 
 
-"   SENSIBLE VIM++
+"   SENSIBLE VIM++: general/sensible configurations 
 let g:is_posix = 1  " correctly highlight $() if filetype=sh
 set wildmenu                        " visual autocomplete for command menu
 set showmatch                       " highlight matching !!important!!
 set showcmd                         " show command in bottom bar
 syntax on
 set noerrorbells
+set autoindent
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -44,11 +45,14 @@ set smartindent
 set rnu
 set smartcase
 set colorcolumn=80
+set hidden      " switch b/w buffers without having to save first
 set noswapfile
 set nobackup
-set undodir=~/.vim/undodir
+set undodir=~/.vim/undodir  " need to create dir if DNE
 set undofile
 set incsearch   " highlight matches from ? and /
+" set hlsearch    " keep search matches highlighted
+set laststatus=2 
 set wrapscan    " wrap search results
 set splitbelow
 set splitright
@@ -148,6 +152,10 @@ Plug 'tpope/vim-surround'
 Plug 'vim-utils/vim-man'
 Plug 'preservim/tagbar'
 
+"   Workflow 
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'preservim/vimux'
+
 ""  code completition 
 Plug 'davidhalter/jedi-vim'   " python only
 Plug 'dense-analysis/ale'
@@ -184,9 +192,17 @@ call plug#end()
 set background=dark
 "syntax on
 "colorscheme seoul256
+
+" nord custom configurations
+let g:nord_cursor_line_number_background = 1
+let g:nord_bold_vertical_split_line = 1
+let g:nord_uniform_diff_background = 1
+let g:nord_italic_comments = 1
+
 colorscheme nord
+
 let g:airline_theme='seoul256'
-let g:airline_powerline_fonts = 1
+" let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
 
 "let g:airline_theme='seoul256'
@@ -358,3 +374,27 @@ endif
 
 au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
 au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
+
+
+
+" ====================================================================================================
+"       TESTING: Non-Plugin Configurations/Remappings
+" ====================================================================================================
+
+" vv to generate new vertical split
+nnore map <silent> vv <C-w>v
+
+
+" ====================================================================================================
+"       TESTING: PLUGIN CUSTOM CONFIGURATIONS 
+" ====================================================================================================
+
+"   VIM-TMUX NAVIGATOR 
+let g:tmux_navigator_save_on_switch = 1     " write current buffer, but only if changed
+let  g:tmux_navigator_no_wrap = 1           " disable default wrapping behavior
+
+"   VIMUX 
+" `<LEADER>vp` - creates new  vimux prompt for running  terminal command 
+map <Leader>vp :VimuxPromptCommand<CR>      
+" `<LEADER> vl>` - run last command executed by VimuxRunCommand
+map <Leader>vl :VimuxRunLastCommand<CR>

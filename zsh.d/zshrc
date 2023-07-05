@@ -378,3 +378,30 @@ alias tmas="tmux attach -t $1"      # TMux Attach Session X
 alias tmks="tmux kill-session -t $1"        # TMux Kill Session 
 alias tmkas="tmux kill-session -a -t $1"    # TMux Kill All Sessions Except 
 alias tmns="tmux new-session -t $1"         # TMux New Session
+
+
+# Oneliner for a shell configuration to automatically load the theme
+test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
+
+# cheatsheet alias 
+alias csh="cd /home/csorndog/.config/cheat/cheatsheets/"
+alias cshd="cd /home/csorndog/.config/cheat/cheatsheets/drafts"
+alias qd="vim /home/csorndog/.config/cheat/cheatsheets/drafts/quick/$1"
+alias cshq="vim /home/csorndog/.config/cheat/cheatsheets/drafts/quick/$1"
+
+# cheatsheet draft quick adds
+alias quickdraft="vim /home/csorndog/.config/cheat/cheatsheets/drafts/quick/$1"
+alias quicksnippet="vim /home/csorndog/.config/cheat/cheatsheets/drafts/snippets/$1"
+alias quicknote="vim /home/csorndog/.config/cheat/cheatsheets/drafts/notes/$1"
+
+
+# TODO: find better fix/keybinding for clear screen
+# HOTFIX: tmux clear screen issue   
+alias cl="tmux send-keys C-l"
+
+# TODO: try bindkey fix
+#bindkey '^q' clear-screen
+#bindkey -s '^q' 'tmux send-keys C-l\n'
+#bindkey -s '^q' 'tmux send-keys^M'
+
+#bindkey -M menuselect 'z' clear-screen
