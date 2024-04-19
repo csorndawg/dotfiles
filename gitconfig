@@ -1,0 +1,22 @@
+[user]
+    email = zaccsorny@yahoo.com
+    username = csorndawg
+    name = csorndawg
+
+[init]
+    defaultBranch = main
+
+[core]
+    editor = vim
+
+[init]
+    defaultBranch = master
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    tool = vimdiff
+
+[credential]
+        helper = cache
