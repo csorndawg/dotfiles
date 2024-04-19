@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="pure"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -99,3 +99,22 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+fpath+=($HOME/.ohmyzsh/zsh/themes/pure)
+fpath+=($HOME/.config/zsh/themes/pure)
+fpath+=($HOME/.config/zsh)
+fpath+=($HOME/.config/zsh/plugins/pure)
+
+autoload -U promptinit; promptinit
+
+zstyle :prompt:pure:user color '#81A1C1'
+zstyle :prompt:pure:host color '#81A1C1'
+zstyle :prompt:pure:path color '#81A1C1'
+zstyle :prompt:pure:prompt:success color green
+zstyle :prompt:pure:git:branch color '#D8BFD8'
+zstyle :prompt:pure:git:action color '#B48EAD'
+zstyle :prompt:pure:git:dirty color red 
+zstyle :prompt:pure:git:arrow color green
+zstyle :prompt:pure:git:stash show yes
+zstyle :prompt:pure:git:stash color magenta
+
+prompt pure
