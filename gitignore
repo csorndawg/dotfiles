@@ -1,4 +1,5 @@
 # standard
+*.swp
 *.tar
 *.tar.*
 *.jar
